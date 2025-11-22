@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XAI Model Routing - Project Summary</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            line-height: 1.8;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        
+        h2 {
+            font-size: 1.6rem;
+            margin-top: 60px;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+            font-weight: 400;
+        }
+        
+        h3 {
+            font-size: 1.2rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #cccccc;
+            font-weight: 400;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            color: #e0e0e0;
+            text-align: justify;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 50px;
+            font-size: 1.1rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background-color: #0a0a0a;
+        }
+        
+        th, td {
+            padding: 14px 18px;
+            text-align: left;
+            border: 1px solid #222;
+        }
+        
+        th {
+            background-color: #1a1a1a;
+            font-weight: 500;
+            color: #ffffff;
+        }
+        
+        td {
+            color: #cccccc;
+        }
+        
+        tr:hover {
+            background-color: #111;
+        }
+        
+        .process-step {
+            background-color: #0a0a0a;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 3px solid #444;
+        }
+        
+        .process-step-number {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        
+        .process-step-title {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        .process-step-desc {
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+        
+        .highlight-box {
+            background-color: #0f0f0f;
+            border: 1px solid #222;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .radar-placeholder {
+            background-color: #0a0a0a;
+            border: 1px solid #222;
+            padding: 30px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        
+        .bar-chart {
+            margin: 20px 0;
+        }
+        
+        .bar-row {
+            display: flex;
+            align-items: center;
+            margin: 12px 0;
+        }
+        
+        .bar-label {
+            width: 140px;
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+        
+        .bar-container {
+            flex: 1;
+            height: 24px;
+            background-color: #1a1a1a;
+            margin: 0 15px;
+        }
+        
+        .bar-fill {
+            height: 100%;
+            background-color: #ffffff;
+            transition: width 0.3s ease;
+        }
+        
+        .bar-value {
+            width: 60px;
+            font-size: 0.85rem;
+            color: #888;
+        }
+        
+        .model-card {
+            background-color: #0a0a0a;
+            border: 1px solid #222;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .model-name {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        .model-specs {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            color: #888;
+        }
+        
+        .model-desc {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .decision-box {
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            padding: 30px;
+            margin: 25px 0;
+        }
+        
+        .decision-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #1a1a1a;
+        }
+        
+        .decision-item:last-child {
+            border-bottom: none;
+        }
+        
+        .decision-label {
+            color: #888;
+        }
+        
+        .decision-value {
+            color: #fff;
+            font-weight: 500;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 80px;
+            padding: 30px;
+            border-top: 1px solid #222;
+            color: #555;
+            font-size: 0.85rem;
+        }
+        
+        code {
+            background-color: #1a1a1a;
+            padding: 2px 8px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .flow-diagram {
+            background-color: #0a0a0a;
+            padding: 30px;
+            margin: 25px 0;
+            text-align: center;
+            font-family: 'Consolas', monospace;
+            font-size: 0.85rem;
+            line-height: 2;
+            color: #aaa;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- Header -->
+        <h1>Explainability-Guided Model Routing</h1>
+        <p class="subtitle">Using XAI to Predict and Minimize Compute Cost</p>
+        
+        <!-- Introduction -->
+        <h2>Project Overview</h2>
+        <p>
+            This project explores how explainable AI (XAI) can make deep learning systems more compute-efficient. 
+            Instead of running every input through a large, energy-hungry model, the system uses explainability 
+            signals to predict how difficult an input is and routes it to the most efficient model that can handle it.
+        </p>
+        <p>
+            The core idea: the AI analyzes the image, explains what it sees, and decides whether it needs 
+            a big brain or a small one. This combines responsible AI, interpretability, and green AI efficiency.
+        </p>
+        
+        <!-- Process -->
+        <h2>System Workflow</h2>
+        
+        <div class="process-step">
+            <div class="process-step-number">STEP 1</div>
+            <div class="process-step-title">Image Input</div>
+            <div class="process-step-desc">
+                User uploads an image. The system prepares it for analysis by resizing to 224x224 pixels 
+                and normalizing pixel values.
+            </div>
+        </div>
+        
+        <div class="process-step">
+            <div class="process-step-number">STEP 2</div>
+            <div class="process-step-title">XAI Feature Extraction</div>
+            <div class="process-step-desc">
+                A lightweight probe model (MobileNetV3-Small) analyzes the image and extracts 7 explainability 
+                features that indicate complexity: attention patterns, gradient responses, spatial structure, 
+                and prediction confidence.
+            </div>
+        </div>
+        
+        <div class="process-step">
+            <div class="process-step-number">STEP 3</div>
+            <div class="process-step-title">Complexity Prediction</div>
+            <div class="process-step-desc">
+                A Gradient Boosting Classifier takes the 7 features and predicts which model tier 
+                (TINY, LIGHT, MEDIUM, or HEAVY) is the minimum required for accurate classification.
+            </div>
+        </div>
+        
+        <div class="process-step">
+            <div class="process-step-number">STEP 4</div>
+            <div class="process-step-title">Dynamic Model Routing</div>
+            <div class="process-step-desc">
+                The image is routed to the predicted tier. Simple images go to fast, lightweight models. 
+                Complex images go to larger, more accurate models.
+            </div>
+        </div>
+        
+        <div class="process-step">
+            <div class="process-step-number">STEP 5</div>
+            <div class="process-step-title">Inference and Explanation</div>
+            <div class="process-step-desc">
+                The selected model runs inference and outputs the prediction along with visual explanations 
+                (GradCAM heatmap) and compute statistics (latency, FLOPs).
+            </div>
+        </div>
+        
+        <!-- GradCAM -->
+        <h2>Why GradCAM?</h2>
+        <p>
+            GradCAM (Gradient-weighted Class Activation Mapping) produces a heatmap showing which regions 
+            of the image the model focuses on when making a prediction. We use it for two purposes:
+        </p>
+        <table>
+            <tr>
+                <th>Purpose</th>
+                <th>Explanation</th>
+            </tr>
+            <tr>
+                <td>Complexity Estimation</td>
+                <td>If attention is scattered across many regions, the image is complex. If focused on one area, it is simple.</td>
+            </tr>
+            <tr>
+                <td>Decision Transparency</td>
+                <td>Users can visually verify that the model is looking at relevant parts of the image, building trust in the system.</td>
+            </tr>
+        </table>
+        
+        <!-- Feature Values -->
+        <h2>XAI Feature Values</h2>
+        <p>
+            We extract 7 features from each image. These features act as a "complexity fingerprint" that 
+            tells us how difficult the image is for the model to process.
+        </p>
+        
+        <table>
+            <tr>
+                <th>Feature</th>
+                <th>What It Measures</th>
+            </tr>
+            <tr>
+                <td>Attention Entropy</td>
+                <td>How scattered or focused the model's attention is across the image.</td>
+            </tr>
+            <tr>
+                <td>Saliency Sparsity</td>
+                <td>What fraction of the image contains important information.</td>
+            </tr>
+            <tr>
+                <td>Gradient Magnitude</td>
+                <td>How strongly the image pixels influence the model's prediction.</td>
+            </tr>
+            <tr>
+                <td>Feature Variance</td>
+                <td>How stable or variable the importance is across different regions.</td>
+            </tr>
+            <tr>
+                <td>Spatial Complexity</td>
+                <td>How many edges, textures, and color variations exist in the image.</td>
+            </tr>
+            <tr>
+                <td>Confidence Margin</td>
+                <td>The gap between the top prediction and second prediction probabilities.</td>
+            </tr>
+            <tr>
+                <td>Activation Sparsity</td>
+                <td>How many neurons in the network are activated by this image.</td>
+            </tr>
+        </table>
+        
+        <!-- Complexity Profile -->
+        <h2>Complexity Profile</h2>
+        <p>
+            The complexity profile is a radar chart that visualizes all 7 features at once. 
+            It allows quick comparison between the current image and typical profiles for each tier.
+        </p>
+        
+        <h3>Example: Simple vs Complex Image</h3>
+        
+        <div class="bar-chart">
+            <p style="color: #888; margin-bottom: 15px; font-size: 0.9rem;">Simple Image (Single Object)</p>
+            <div class="bar-row">
+                <span class="bar-label">Attention Entropy</span>
+                <div class="bar-container"><div class="bar-fill" style="width: 15%;"></div></div>
+                <span class="bar-value">0.15</span>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">Spatial Complexity</span>
+                <div class="bar-container"><div class="bar-fill" style="width: 79%;"></div></div>
+                <span class="bar-value">0.79</span>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">Activation Sparsity</span>
+                <div class="bar-container"><div class="bar-fill" style="width: 65%;"></div></div>
+                <span class="bar-value">0.65</span>
+            </div>
+        </div>
+        
+        <div class="bar-chart">
+            <p style="color: #888; margin-bottom: 15px; font-size: 0.9rem;">Complex Image (Crowded Scene)</p>
+            <div class="bar-row">
+                <span class="bar-label">Attention Entropy</span>
+                <div class="bar-container"><div class="bar-fill" style="width: 85%;"></div></div>
+                <span class="bar-value">0.85</span>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">Spatial Complexity</span>
+                <div class="bar-container"><div class="bar-fill" style="width: 98%;"></div></div>
+                <span class="bar-value">0.98</span>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">Activation Sparsity</span>
+                <div class="bar-container"><div class="bar-fill" style="width: 10%;"></div></div>
+                <span class="bar-value">0.10</span>
+            </div>
+        </div>
+        
+        <p>
+            Simple images show low attention entropy (focused), moderate spatial complexity, and high 
+            activation sparsity (few neurons needed). Complex images show the opposite pattern.
+        </p>
+        
+        <!-- SHAP -->
+        <h2>SHAP Analysis</h2>
+        <p>
+            SHAP (SHapley Additive exPlanations) quantifies how much each feature contributed to the 
+            routing decision. It answers the question: "Why did this image get routed to this tier?"
+        </p>
+        
+        <table>
+            <tr>
+                <th>Contribution</th>
+                <th>Meaning</th>
+            </tr>
+            <tr>
+                <td>Positive (Red)</td>
+                <td>This feature pushed the decision toward a more complex tier (MEDIUM/HEAVY).</td>
+            </tr>
+            <tr>
+                <td>Negative (Blue)</td>
+                <td>This feature pushed the decision toward a simpler tier (TINY/LIGHT).</td>
+            </tr>
+        </table>
+        
+        <p>
+            For example, if Attention Entropy contributes +0.35, it means the scattered attention pattern 
+            strongly suggested this image needs a heavier model. SHAP makes every routing decision interpretable.
+        </p>
+        
+        <!-- Models -->
+        <h2>Models Used</h2>
+        
+        <div class="model-card">
+            <div class="model-name">TINY: MobileNetV3-Small</div>
+            <div class="model-specs">
+                <span>2.5M params</span>
+                <span>60 MFLOPs</span>
+                <span>8ms latency</span>
+            </div>
+            <div class="model-desc">
+                Smallest and fastest model, designed for mobile devices. Best for simple images with 
+                single objects and clean backgrounds.
+            </div>
+        </div>
+        
+        <div class="model-card">
+            <div class="model-name">LIGHT: MobileNetV3-Large</div>
+            <div class="model-specs">
+                <span>5.4M params</span>
+                <span>220 MFLOPs</span>
+                <span>15ms latency</span>
+            </div>
+            <div class="model-desc">
+                Larger mobile-optimized model with more capacity. Handles images with a few objects 
+                and moderate background complexity.
+            </div>
+        </div>
+        
+        <div class="model-card">
+            <div class="model-name">MEDIUM: EfficientNet-B0</div>
+            <div class="model-specs">
+                <span>5.3M params</span>
+                <span>400 MFLOPs</span>
+                <span>25ms latency</span>
+            </div>
+            <div class="model-desc">
+                Uses compound scaling for optimal depth-width-resolution balance. Suitable for 
+                moderately complex scenes with multiple interacting objects.
+            </div>
+        </div>
+        
+        <div class="model-card">
+            <div class="model-name">HEAVY: ResNet-50</div>
+            <div class="model-specs">
+                <span>25.6M params</span>
+                <span>4100 MFLOPs</span>
+                <span>80ms latency</span>
+            </div>
+            <div class="model-desc">
+                Deep residual network with 50 layers. Most accurate and robust, used for crowded scenes, 
+                fine-grained details, and ambiguous images.
+            </div>
+        </div>
+        
+        <!-- Tier Assignment -->
+        <h2>How Tier Assignment Works</h2>
+        
+        <p>
+            The complexity predictor uses feature boundaries learned from training data. 
+            The primary routing signal is Attention Entropy (60% importance).
+        </p>
+        
+        <table>
+            <tr>
+                <th>Tier</th>
+                <th>Attention Entropy</th>
+                <th>Activation Sparsity</th>
+                <th>Typical Content</th>
+            </tr>
+            <tr>
+                <td>TINY</td>
+                <td>0.10 - 0.35</td>
+                <td>0.45 - 0.70</td>
+                <td>Single object, plain background</td>
+            </tr>
+            <tr>
+                <td>LIGHT</td>
+                <td>0.30 - 0.55</td>
+                <td>0.25 - 0.55</td>
+                <td>Few objects, some context</td>
+            </tr>
+            <tr>
+                <td>MEDIUM</td>
+                <td>0.50 - 0.75</td>
+                <td>0.05 - 0.30</td>
+                <td>Multiple objects, busy scene</td>
+            </tr>
+            <tr>
+                <td>HEAVY</td>
+                <td>0.70 - 0.95</td>
+                <td>0.02 - 0.18</td>
+                <td>Crowded, complex, ambiguous</td>
+            </tr>
+        </table>
+        
+        <!-- Routing Decision -->
+        <h2>Understanding the Routing Decision</h2>
+        
+        <p>
+            When the system processes an image, it outputs a routing decision with four key metrics:
+        </p>
+        
+        <div class="decision-box">
+            <div class="decision-item">
+                <span class="decision-label">Tier</span>
+                <span class="decision-value">LIGHT</span>
+            </div>
+            <div class="decision-item">
+                <span class="decision-label">Confidence</span>
+                <span class="decision-value">0.6759</span>
+            </div>
+            <div class="decision-item">
+                <span class="decision-label">Latency</span>
+                <span class="decision-value">15ms</span>
+            </div>
+            <div class="decision-item">
+                <span class="decision-label">FLOPs</span>
+                <span class="decision-value">220M</span>
+            </div>
+        </div>
+        
+        <table>
+            <tr>
+                <th>Metric</th>
+                <th>What It Means</th>
+            </tr>
+            <tr>
+                <td>Tier</td>
+                <td>The selected model tier (TINY, LIGHT, MEDIUM, or HEAVY). This is the smallest model 
+                    predicted to handle the image correctly.</td>
+            </tr>
+            <tr>
+                <td>Confidence</td>
+                <td>How certain the predictor is about this routing decision (0.0 to 1.0). 
+                    A confidence of 0.6759 means 67.59% certainty that LIGHT is the correct tier.</td>
+            </tr>
+            <tr>
+                <td>Latency</td>
+                <td>Expected inference time in milliseconds. Lower is faster. LIGHT at 15ms is 
+                    5.3x faster than HEAVY at 80ms.</td>
+            </tr>
+            <tr>
+                <td>FLOPs</td>
+                <td>Floating point operations required (in millions). Measures computational cost. 
+                    LIGHT at 220M uses 18.6x less compute than HEAVY at 4100M.</td>
+            </tr>
+        </table>
+        
+        <!-- Results -->
+        <h2>Results Summary</h2>
+        
+        <table>
+            <tr>
+                <th>Metric</th>
+                <th>Baseline (Always HEAVY)</th>
+                <th>XAI Routing</th>
+                <th>Improvement</th>
+            </tr>
+            <tr>
+                <td>Routing Accuracy</td>
+                <td>-</td>
+                <td>86.7%</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Average Latency</td>
+                <td>80ms</td>
+                <td>21.7ms</td>
+                <td>73% faster</td>
+            </tr>
+            <tr>
+                <td>Average FLOPs</td>
+                <td>4100M</td>
+                <td>517M</td>
+                <td>87% less compute</td>
+            </tr>
+        </table>
+        
+        <!-- Footer -->
+        <div class="copyright">
+            <p>Explainability-Guided Model Routing</p>
+            <p>XAI Final Project</p>
+            <p style="margin-top: 15px;">Generated using Claude</p>
+        </div>
+        
+    </div>
+</body>
+</html>
